@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file alias="settings.svg">rs/setting.svg</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file alias="bgi.png">rs\bgi.png</file>
+    </qresource>
+</RCC>
