@@ -64,6 +64,7 @@ void MainWindow::Msg(const QString &msg, MsgType type)
     framework::Log(logHeader + msg);
     ui->info_bar->setStyleSheet(appendstyle.arg(color_border).arg(color_bg));
     ui->info_bar_icon->setStyleSheet(ui->info_bar_icon->styleSheet().append(QString("background-color:%1;").arg(color_border)));
+    this->resizeEvent(nullptr);
 }
 
 void MainWindow::LoadAppConfig()
@@ -92,14 +93,15 @@ void MainWindow::LoadGameConfig()
         }
         auto szUpperLimitFPS = QString::number(this->int_UpperLimit_FPS);
         ui->input_value->setText(szUpperLimitFPS);
-        ui->text_Value->setText(ui->text_Value->text().arg(szUpperLimitFPS));
-        ui->text_FPS_display->setText(ui->text_FPS_display->text().arg(szUpperLimitFPS));
+        ui->text_Value->setText("Target:" + szUpperLimitFPS);
+        ui->text_FPS_display->setText("Current Value:" + szUpperLimitFPS);
         connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::StartProcess);
         if (cfg["startAtFirst"])
         {
             this->StartProcess();
             cfg["startAtFirst"] = false;
         }
+        return;
     }
     this->Msg("<Genshin-PATH> load failed.", Warning);
     ui->pushButton->disconnect();
@@ -526,7 +528,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     int infoBarHeight = 35;
     if (ui->info_bar_text->text().contains('\n'))
         infoBarHeight = 55;
-    ui->info_bar->setGeometry(100, this->height() - 60, this->width() - 200, infoBarHeight);
+    ui->info_bar->setGeometry(100, this->height() - 100 + infoBarHeight, this->width() - 200, infoBarHeight);
     ui->Image_Background->resize(this->size());
     ui->Image_Background->setPixmap(img_background->scaled(ui->Image_Background->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
     
