@@ -65,6 +65,7 @@ private slots:
 
     void ApplySettings();
     void LoadSettingsToUI();
+    void DisplayPage_About();
 signals:
     void SIG_Error(QString errMsg);
     void SIG_AppConfigured();

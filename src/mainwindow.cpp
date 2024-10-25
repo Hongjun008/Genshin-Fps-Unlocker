@@ -132,6 +132,7 @@ void MainWindow::InitializeGUI()
     connect(ui->btn_down, &QPushButton::clicked, this, &MainWindow::setLimitMinus);
     connect(ui->btn_Apply_Settings, &QPushButton::clicked, this, &MainWindow::ApplySettings);
     connect(ui->btn_reload, &QPushButton::clicked, this, &MainWindow::LoadSettingsToUI);
+    connect(ui->btn_About, &QPushButton::clicked, this, &MainWindow::DisplayPage_About);
 
     if (cfg["nativeWindow"])
     {
@@ -314,6 +315,17 @@ void MainWindow::LoadSettingsToUI()
         ui->input_FPS->setText(valuefps);
         ui->text_FPS_display->setText("Current:" + valuefps);
     }
+}
+
+void MainWindow::DisplayPage_About()
+{
+    QMessageBox::about(this, "About 关于", 
+    "Genshin Impact FPS Unlocker 原神帧率解锁工具\n"
+    "Test version, 0.1\n"
+    "By Hongjun008 https://hongjun.tech\n"
+    "Thanks/tech from: Github@winTEuser\n"
+    "More in https://github.com/Hongjun008/Genshin-Fps-Unlocker\n"
+    );
 }
 
 void MainWindow::Memory_Initialize()
