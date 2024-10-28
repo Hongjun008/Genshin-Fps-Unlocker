@@ -675,10 +675,10 @@ border:none;</string>
          </font>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;[test version]&lt;/p&gt;&lt;p&gt;By Hongjun008 (ver.Alpha)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;hongju.tech&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;github.com/HOJN008&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Core code from &lt;span style=&quot; font-weight:700;&quot;&gt;Github@winTEuser&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string/>
         </property>
         <property name="text">
-         <string>by Hongjun008    (ver.Alpha)</string>
+         <string>by Hongjun008    (ver.Beta)</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignmentFlag::AlignCenter</set>
