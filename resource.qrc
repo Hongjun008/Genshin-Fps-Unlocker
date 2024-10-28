@@ -3,6 +3,6 @@
         <file alias="settings.svg">rs/setting.svg</file>
     </qresource>
     <qresource prefix="/img">
-        <file alias="bgi.png">rs\bgi.png</file>
+        <file alias="bgimg.jpg">rs\bgimg.jpg</file>
     </qresource>
 </RCC>

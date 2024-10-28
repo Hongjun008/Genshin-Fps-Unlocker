@@ -16,7 +16,7 @@ MainWindow::MainWindow(const char *titleText)
     : int_Counter(0), pid(0), int_UpperLimit_FPS(120),
       configured_Memory(false), is_ProcessRunning(false), is_atMainPage(true),
       timer_AutoDetect(new QTimer(this)), timer_GetModule(new QTimer(this)), timer_Monitor(new QTimer(this)),
-      img_background(new QPixmap(":/img/bgi.png")),
+      img_background(new QPixmap(":/img/bgimg.jpg")),
       ui(new MainWindowUI)
 {
     ui->setupUi(this);
