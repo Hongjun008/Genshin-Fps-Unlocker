@@ -68,7 +68,6 @@ private slots:
     void DisplayPage_About();
 signals:
     void SIG_Error(QString errMsg);
-    void SIG_AppConfigured();
     void MSG(QString msg, MainWindow::MsgType msgType = Information);
 protected:
     bool eventFilter(QObject *obj, QEvent* event) override;

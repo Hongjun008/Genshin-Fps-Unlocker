@@ -163,6 +163,8 @@ void MainWindow::InitializeGUI()
 
 void MainWindow::StartProcess()
 {
+    if(is_ProcessRunning)
+        return;
     STARTUPINFOA info_Startup{};
     BOOL result = CreateProcessA(
         info_Path_Genshin.toLocal8Bit(),
@@ -177,6 +179,7 @@ void MainWindow::StartProcess()
         &info_Process);
     if (result)
     {
+        is_ProcessRunning = true;
         ::CloseHandle(info_Process.hThread);
         ::SetPriorityClass(info_Process.hProcess, HIGH_PRIORITY_CLASS);
         this->pid = info_Process.dwProcessId;
@@ -246,9 +249,9 @@ void MainWindow::DetectGamePath()
         info_Path_Genshin = pszPath;
         ui->pushButton->disconnect();
         ui->pushButton->setText("START");
-        this->Msg("Game path found at:\n" + info_Path_Genshin);
+        this->Msg("Game path found");
         connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::StartProcess);
-        if (framework::WriteConfig(Genshin, "PATH", info_Path_Genshin))
+        if (!framework::WriteConfig(Genshin, "PATH", info_Path_Genshin))
             emit SIG_Error("Game path found but config write failed");
         this->LoadGameConfig();
     }
@@ -256,8 +259,7 @@ void MainWindow::DetectGamePath()
 
 void MainWindow::ApplyLimit()
 {
-    if(is_ProcessRunning)
-        this->SetLimit(ui->input_value->text().toInt());
+    this->SetLimit(ui->input_value->text().toInt());
 }
 
 void MainWindow::setLimitMinus()
@@ -354,6 +356,7 @@ void MainWindow::Memory_Initialize()
         this->info_Memory.sectionVS = textVirtualSize;
         this->info_Memory.remoteBA = UnityLib_mod_baseAddr;
         this->Memory_Configure();
+        return;
     }
     ::VirtualFree(pe_buffer, 0, MEM_RELEASE);
     ::CloseHandle(info_Process.hProcess);
@@ -433,13 +436,11 @@ void MainWindow::StartDetectProcess()
 void MainWindow::ProcessMonitor()
 {
     DWORD dwExitCode = 0;
-    if (::GetExitCodeProcess(this->info_Process.hProcess, &dwExitCode))
+    ::GetExitCodeProcess(this->info_Process.hProcess, &dwExitCode);
+    if (dwExitCode == STILL_ACTIVE)
     {
-        if (dwExitCode == STILL_ACTIVE)
-        {
-            this->is_ProcessRunning = true;
-            return;
-        }
+        this->is_ProcessRunning = true;
+        return;
     }
     this->is_ProcessRunning = false;
 }
