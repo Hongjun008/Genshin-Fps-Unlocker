@@ -69,7 +69,7 @@ void MainWindow::Msg(const QString &msg, MsgType type)
 
 void MainWindow::LoadAppConfig()
 {
-    QStringList CFGList{"nativeWindow", "startAtFirst", "noAnimation"};
+    QStringList CFGList{"nativeWindow", "startAtFirst", "noAnimation", "exitWithGame"};
     foreach (auto value, CFGList)
         this->cfg.insert(value, framework::ReadConfigBoolean("App", value.toLocal8Bit()));
     connect(this->timer_AutoDetect, &QTimer::timeout, this, &MainWindow::DetectGamePath);
@@ -443,6 +443,11 @@ void MainWindow::ProcessMonitor()
         return;
     }
     this->is_ProcessRunning = false;
+    if (cfg["exitWithGame"])
+    {
+        QApplication::closeAllWindows();
+    }
+    
 }
 
 void MainWindow::RegisterHotKeys()
