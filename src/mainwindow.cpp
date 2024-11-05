@@ -1,4 +1,5 @@
 ﻿#include "mainwindow.h"
+#include "wabout.h"
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPushButton>
@@ -321,13 +322,8 @@ void MainWindow::LoadSettingsToUI()
 
 void MainWindow::DisplayPage_About()
 {
-    QMessageBox::about(this, "About 关于", 
-    "Genshin Impact FPS Unlocker 原神帧率解锁工具\n"
-    "Test version, 0.1\n"
-    "By Hongjun008 https://hongjun.tech\n"
-    "Thanks/tech from: Github@winTEuser\n"
-    "More in https://github.com/Hongjun008/Genshin-Fps-Unlocker\n"
-    );
+    WAbout windowAbout(this);
+    windowAbout.exec();
 }
 
 void MainWindow::Memory_Initialize()
