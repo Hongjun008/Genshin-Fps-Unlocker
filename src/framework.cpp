@@ -375,4 +375,13 @@ namespace framework
             return 0;
         }
     }
+    void SetFramelessWindow(QWidget *widget)
+    {
+        MARGINS margins = {1, 1, 1, 1};
+        widget->setWindowFlags(widget->windowFlags() | Qt::FramelessWindowHint);
+        auto hwnd = reinterpret_cast<HWND>(widget->winId());
+        auto style = GetWindowLongW(hwnd, GWL_STYLE) | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION;
+        ::SetWindowLongW(hwnd, GWL_STYLE, style);
+        ::DwmExtendFrameIntoClientArea(hwnd, &margins);
+    }
 }

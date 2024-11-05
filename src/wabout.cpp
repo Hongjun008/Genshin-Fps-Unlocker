@@ -1,4 +1,6 @@
 #include "wabout.h"
+
+#include "framework.h"
 #include "ui_wabout.h"
 
 WAbout::WAbout(QWidget *parent) : QDialog(parent),
@@ -6,6 +8,7 @@ WAbout::WAbout(QWidget *parent) : QDialog(parent),
 {
     ui->setupUi(this);
     this->setFixedSize(this->size());
+    framework::SetFramelessWindow(this);
     connect(ui->btn_OK, &QPushButton::clicked, this, &QWidget::close);
 }
 

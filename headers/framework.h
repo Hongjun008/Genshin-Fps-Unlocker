@@ -58,5 +58,7 @@ namespace framework
 
     DWORD64 InjectPatch(LPVOID text_buffer, DWORD text_size, DWORD64 _text_baseaddr, uint64_t _ptr_fps, HANDLE Tar_handle, int &fps_target);
 
+    void SetFramelessWindow(QWidget* widget);
+
 }
 #endif

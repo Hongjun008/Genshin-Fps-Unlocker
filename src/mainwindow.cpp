@@ -10,7 +10,6 @@
 #include <QValidator>
 #include <QStyleOption>
 #include <QPainter>
-#include <QGraphicsBlurEffect>
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(const char *titleText)
@@ -142,22 +141,12 @@ void MainWindow::InitializeGUI()
     }
     else
     {
+        framework::SetFramelessWindow(this);
         ui->setB_nw->setChecked(false);
-        MARGINS margins = {-1, -1, -1, -1};
-        this->setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint);
-        auto hwnd = reinterpret_cast<HWND>(this->winId());
-        auto style = GetWindowLongW(hwnd, GWL_STYLE) | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION;
-        ::SetWindowLongW(hwnd, GWL_STYLE, style);
-        ::DwmExtendFrameIntoClientArea(hwnd, &margins);
         ui->titleBar->setEnabled(true);
         ui->titleBar->show();
         ui->titleBar->move(0, 0);
-        // setAutoFillBackground(true);
-        setAttribute(Qt::WA_TranslucentBackground);
     }
-    // auto eff = new QGraphicsBlurEffect(this);
-    // eff->setBlurRadius(10);
-    // ui->Image_Background->setGraphicsEffect(eff);
     ui->Image_Background->setAlignment(Qt::AlignCenter);
     this->resizeEvent(nullptr);
 }
