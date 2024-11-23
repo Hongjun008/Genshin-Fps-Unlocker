@@ -577,16 +577,17 @@ bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, qintptr
         bool t = p.y() < 8;
         bool r = p.x() > this->width() - 8;
         bool b = p.y() > this->height() - 8;
-        *result = (r && b)                             ? HTBOTTOMRIGHT
-                  : (l && b)                           ? HTBOTTOMLEFT
-                  : (r && t)                           ? HTTOPRIGHT
-                  : (l && t)                           ? HTTOPLEFT
-                  : b                                  ? HTBOTTOM
-                  : r                                  ? HTRIGHT
-                  : l                                  ? HTLEFT
-                  : t                                  ? HTTOP
-                  : ui->title_text->rect().contains(p) ? HTCAPTION
-                                                       : NULL;
+        bool caption = ui->title_text->rect().contains(p);
+        *result = (r && b)    ? HTBOTTOMRIGHT
+                  : (l && b)  ? HTBOTTOMLEFT
+                  : (r && t)  ? HTTOPRIGHT
+                  : (l && t)  ? HTTOPLEFT
+                  : b         ? HTBOTTOM
+                  : r         ? HTRIGHT
+                  : l         ? HTLEFT
+                  : t         ? HTTOP
+                  : caption   ? HTCAPTION
+                  : NULL;
         if (*result)
             return true;
     }
