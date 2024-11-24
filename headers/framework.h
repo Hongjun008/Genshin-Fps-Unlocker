@@ -26,8 +26,6 @@ class QPixmap;
 #define DEFAULT_FPS 120
 #define Genshin "Genshin"
 #define LMAXPATH (unsigned long)512
-#define szPATTERN1
-#define UPPER_LIMIT 800
 
 namespace framework
 {

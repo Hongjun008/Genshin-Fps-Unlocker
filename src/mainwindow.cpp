@@ -110,10 +110,10 @@ void MainWindow::LoadGameConfig()
 
 void MainWindow::InitializeGUI()
 {
-    const QString szLimitRE("^(60|[6-9]\\d|[1-4]\\d{2}|%1)$");
-    const QRegularExpressionValidator limitedValidator(QRegularExpression{szLimitRE.arg(UPPER_LIMIT)});
-    ui->input_FPS->setValidator(&limitedValidator);
-    ui->input_value->setValidator(&limitedValidator);
+    const QString szLimitRE("^(?:[6-9][0-9]|[1-7][0-9]{2}|800)$");
+    const auto limitedValidator = new QRegularExpressionValidator(QRegularExpression{szLimitRE}, this);
+    ui->input_FPS->setValidator(limitedValidator);
+    ui->input_value->setValidator(limitedValidator);
     ui->input_value->installEventFilter(this);
     ui->input_PATH->installEventFilter(this);
     ui->info_bar->setVisible(false);
@@ -255,14 +255,14 @@ void MainWindow::ApplyLimit()
 void MainWindow::setLimitMinus()
 {
     qint32 value = ui->input_value->text().toInt() - 10;
-    if (value >= 60 && value <= UPPER_LIMIT)
+    if (value >= 60 && value <= 800)
         ui->input_value->setText(QString::number(value));
 }
 
 void MainWindow::setLimitPlus()
 {
     qint32 value = ui->input_value->text().toInt() + 10;
-    if (value >= 60 && value <= UPPER_LIMIT)
+    if (value >= 60 && value <= 800)
         ui->input_value->setText(QString::number(value));
 }
 
@@ -270,8 +270,8 @@ void MainWindow::SetLimit(qint32 value)
 {
     if (value < 60)
         value = 60;
-    else if (value > UPPER_LIMIT)
-        value = UPPER_LIMIT;
+    else if (value > 800)
+        value = 800;
     this->int_UpperLimit_FPS = value;
     ui->input_value->setText(QString::number(value));
     ui->text_Value->setText("Current:" + QString::number(value));
@@ -374,7 +374,7 @@ void MainWindow::Memory_Configure()
         address += *reinterpret_cast<qint32 *>(address) + 4;
         ptr_fps = address - reinterpret_cast<quintptr>(copyTextVirtualAddr) + this->info_Memory.remoteVA;
     }
-    else if ((address = framework::PatternScan_Region(startAddress, this->info_Memory.sectionVS, signatureAddr2)))
+    else if (address = framework::PatternScan_Region(startAddress, this->info_Memory.sectionVS, signatureAddr2))
     {
         address += 4;
         address += *reinterpret_cast<quint32 *>(address) + 4;
