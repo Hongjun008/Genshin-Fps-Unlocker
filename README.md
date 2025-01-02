@@ -3,7 +3,7 @@
 一个用于解锁修改原神帧率上限的工具。  
 A gui tool for modify the Genshin Impact game FPS upper limitation.
 
-> 原神支持版本 Surpport Version ***5.2***
+> 原神支持版本 Surpport Version ***5.3***
 
 项目处于测试阶段，正在更新。
 ### 说明 
